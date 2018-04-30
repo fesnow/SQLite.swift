@@ -52,7 +52,7 @@ try db.run(users.create { t in
 //     "email" TEXT NOT NULL UNIQUE
 // )
 
-let insert = users.insert(name <- "Alice", email <- "alice@mac.com")
+let insert = users.insert(name <-- "Alice", email <-- "alice@mac.com")
 let rowid = try db.run(insert)
 // INSERT INTO "users" ("name", "email") VALUES ('Alice', 'alice@mac.com')
 
@@ -64,7 +64,7 @@ for user in try db.prepare(users) {
 
 let alice = users.filter(id == rowid)
 
-try db.run(alice.update(email <- email.replace("mac.com", with: "me.com")))
+try db.run(alice.update(email <-- email.replace("mac.com", with: "me.com")))
 // UPDATE "users" SET "email" = replace("email", 'mac.com', 'me.com')
 // WHERE ("id" = 1)
 

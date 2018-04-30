@@ -28,7 +28,7 @@ precedencegroup ColumnAssignment {
     lowerThan: AssignmentPrecedence
 }
 
-infix operator <- : ColumnAssignment
+infix operator <-- : ColumnAssignment
 
 public struct Setter {
 
@@ -70,196 +70,196 @@ extension Setter : Expressible {
 
 }
 
-public func <-<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter {
+public func <--<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter {
     return Setter(column: column, value: value)
 }
-public func <-<V : Value>(column: Expression<V>, value: V) -> Setter {
+public func <--<V : Value>(column: Expression<V>, value: V) -> Setter {
     return Setter(column: column, value: value)
 }
-public func <-<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter {
+public func <--<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter {
     return Setter(column: column, value: value)
 }
-public func <-<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter {
+public func <--<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter {
     return Setter(column: column, value: value)
 }
-public func <-<V : Value>(column: Expression<V?>, value: V?) -> Setter {
+public func <--<V : Value>(column: Expression<V?>, value: V?) -> Setter {
     return Setter(column: column, value: value)
 }
 
 public func +=(column: Expression<String>, value: Expression<String>) -> Setter {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=(column: Expression<String>, value: String) -> Setter {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=(column: Expression<String?>, value: Expression<String>) -> Setter {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=(column: Expression<String?>, value: Expression<String?>) -> Setter {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=(column: Expression<String?>, value: String) -> Setter {
-    return column <- column + value
+    return column <-- column + value
 }
 
 public func +=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype : Number {
-    return column <- column + value
+    return column <-- column + value
 }
 public func +=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column + value
+    return column <-- column + value
 }
 
 public func -=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column - value
+    return column <-- column - value
 }
 public func -=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column - value
+    return column <-- column - value
 }
 public func -=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column - value
+    return column <-- column - value
 }
 public func -=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype : Number {
-    return column <- column - value
+    return column <-- column - value
 }
 public func -=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column - value
+    return column <-- column - value
 }
 
 public func *=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column * value
+    return column <-- column * value
 }
 public func *=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column * value
+    return column <-- column * value
 }
 public func *=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column * value
+    return column <-- column * value
 }
 public func *=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype : Number {
-    return column <- column * value
+    return column <-- column * value
 }
 public func *=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column * value
+    return column <-- column * value
 }
 
 public func /=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column / value
+    return column <-- column / value
 }
 public func /=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column / value
+    return column <-- column / value
 }
 public func /=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype : Number {
-    return column <- column / value
+    return column <-- column / value
 }
 public func /=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype : Number {
-    return column <- column / value
+    return column <-- column / value
 }
 public func /=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype : Number {
-    return column <- column / value
+    return column <-- column / value
 }
 
 public func %=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column % value
+    return column <-- column % value
 }
 public func %=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column % value
+    return column <-- column % value
 }
 public func %=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column % value
+    return column <-- column % value
 }
 public func %=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype == Int64 {
-    return column <- column % value
+    return column <-- column % value
 }
 public func %=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column % value
+    return column <-- column % value
 }
 
 public func <<=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column << value
+    return column <-- column << value
 }
 public func <<=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column << value
+    return column <-- column << value
 }
 public func <<=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column << value
+    return column <-- column << value
 }
 public func <<=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype == Int64 {
-    return column <- column << value
+    return column <-- column << value
 }
 public func <<=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column << value
+    return column <-- column << value
 }
 
 public func >>=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column >> value
+    return column <-- column >> value
 }
 public func >>=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column >> value
+    return column <-- column >> value
 }
 public func >>=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column >> value
+    return column <-- column >> value
 }
 public func >>=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype == Int64 {
-    return column <- column >> value
+    return column <-- column >> value
 }
 public func >>=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column >> value
+    return column <-- column >> value
 }
 
 public func &=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column & value
+    return column <-- column & value
 }
 public func &=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column & value
+    return column <-- column & value
 }
 public func &=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column & value
+    return column <-- column & value
 }
 public func &=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype == Int64 {
-    return column <- column & value
+    return column <-- column & value
 }
 public func &=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column & value
+    return column <-- column & value
 }
 
 public func |=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column | value
+    return column <-- column | value
 }
 public func |=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column | value
+    return column <-- column | value
 }
 public func |=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column | value
+    return column <-- column | value
 }
 public func |=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype == Int64 {
-    return column <- column | value
+    return column <-- column | value
 }
 public func |=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column | value
+    return column <-- column | value
 }
 
 public func ^=<V : Value>(column: Expression<V>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column ^ value
+    return column <-- column ^ value
 }
 public func ^=<V : Value>(column: Expression<V>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column ^ value
+    return column <-- column ^ value
 }
 public func ^=<V : Value>(column: Expression<V?>, value: Expression<V>) -> Setter where V.Datatype == Int64 {
-    return column <- column ^ value
+    return column <-- column ^ value
 }
 public func ^=<V : Value>(column: Expression<V?>, value: Expression<V?>) -> Setter where V.Datatype == Int64 {
-    return column <- column ^ value
+    return column <-- column ^ value
 }
 public func ^=<V : Value>(column: Expression<V?>, value: V) -> Setter where V.Datatype == Int64 {
-    return column <- column ^ value
+    return column <-- column ^ value
 }
 
 public postfix func ++<V : Value>(column: Expression<V>) -> Setter where V.Datatype == Int64 {

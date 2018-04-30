@@ -4,12 +4,12 @@ import SQLite
 class SetterTests : XCTestCase {
 
     func test_setterAssignmentOperator_buildsSetter() {
-        AssertSQL("\"int\" = \"int\"", int <- int)
-        AssertSQL("\"int\" = 1", int <- 1)
-        AssertSQL("\"intOptional\" = \"int\"", intOptional <- int)
-        AssertSQL("\"intOptional\" = \"intOptional\"", intOptional <- intOptional)
-        AssertSQL("\"intOptional\" = 1", intOptional <- 1)
-        AssertSQL("\"intOptional\" = NULL", intOptional <- nil)
+        AssertSQL("\"int\" = \"int\"", int <-- int)
+        AssertSQL("\"int\" = 1", int <-- 1)
+        AssertSQL("\"intOptional\" = \"int\"", intOptional <-- int)
+        AssertSQL("\"intOptional\" = \"intOptional\"", intOptional <-- intOptional)
+        AssertSQL("\"intOptional\" = 1", intOptional <-- 1)
+        AssertSQL("\"intOptional\" = NULL", intOptional <-- nil)
     }
 
     func test_plusEquals_withStringExpression_buildsSetter() {

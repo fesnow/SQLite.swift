@@ -16,7 +16,7 @@ try! db.run(users.create { t in
     t.column(name)
 })
 
-let rowid = try! db.run(users.insert(email <- "alice@mac.com"))
+let rowid = try! db.run(users.insert(email <-- "alice@mac.com"))
 let alice = users.filter(id == rowid)
 
 for user in try! db.prepare(users) {
@@ -31,8 +31,8 @@ let body = Expression<String?>("body")
 try! db.run(emails.create(.FTS4(subject, body)))
 
 try! db.run(emails.insert(
-    subject <- "Hello, world!",
-    body <- "This is a hello world message."
+    subject <-- "Hello, world!",
+    body <-- "This is a hello world message."
 ))
 
 let row = try! db.pluck(emails.match("hello"))

@@ -105,37 +105,37 @@ fileprivate class SQLiteEncoder: Encoder {
         }
 
         func encodeNil(forKey key: SQLiteEncoder.SQLiteKeyedEncodingContainer<Key>.Key) throws {
-            self.encoder.setters.append(Expression<String?>(key.stringValue) <- nil)
+            self.encoder.setters.append(Expression<String?>(key.stringValue) <-- nil)
         }
 
         func encode(_ value: Int, forKey key: SQLiteEncoder.SQLiteKeyedEncodingContainer<Key>.Key) throws {
-            self.encoder.setters.append(Expression(key.stringValue) <- value)
+            self.encoder.setters.append(Expression(key.stringValue) <-- value)
         }
 
         func encode(_ value: Bool, forKey key: Key) throws {
-            self.encoder.setters.append(Expression(key.stringValue) <- value)
+            self.encoder.setters.append(Expression(key.stringValue) <-- value)
         }
 
         func encode(_ value: Float, forKey key: Key) throws {
-            self.encoder.setters.append(Expression(key.stringValue) <- Double(value))
+            self.encoder.setters.append(Expression(key.stringValue) <-- Double(value))
         }
 
         func encode(_ value: Double, forKey key: Key) throws {
-            self.encoder.setters.append(Expression(key.stringValue) <- value)
+            self.encoder.setters.append(Expression(key.stringValue) <-- value)
         }
 
         func encode(_ value: String, forKey key: Key) throws {
-            self.encoder.setters.append(Expression(key.stringValue) <- value)
+            self.encoder.setters.append(Expression(key.stringValue) <-- value)
         }
 
         func encode<T>(_ value: T, forKey key: Key) throws where T : Swift.Encodable {
             if let data = value as? Data {
-                self.encoder.setters.append(Expression(key.stringValue) <- data)
+                self.encoder.setters.append(Expression(key.stringValue) <-- data)
             }
             else {
                 let encoded = try JSONEncoder().encode(value)
                 let string = String(data: encoded, encoding: .utf8)
-                self.encoder.setters.append(Expression(key.stringValue) <- string)
+                self.encoder.setters.append(Expression(key.stringValue) <-- string)
             }
         }
 

@@ -223,14 +223,14 @@ class QueryTests : XCTestCase {
     func test_insert_compilesInsertExpression() {
         AssertSQL(
             "INSERT INTO \"users\" (\"email\", \"age\") VALUES ('alice@example.com', 30)",
-            users.insert(email <- "alice@example.com", age <- 30)
+            users.insert(email <-- "alice@example.com", age <-- 30)
         )
     }
 
     func test_insert_withOnConflict_compilesInsertOrOnConflictExpression() {
         AssertSQL(
             "INSERT OR REPLACE INTO \"users\" (\"email\", \"age\") VALUES ('alice@example.com', 30)",
-            users.insert(or: .replace, email <- "alice@example.com", age <- 30)
+            users.insert(or: .replace, email <-- "alice@example.com", age <-- 30)
         )
     }
 
@@ -273,14 +273,14 @@ class QueryTests : XCTestCase {
     func test_update_compilesUpdateExpression() {
         AssertSQL(
             "UPDATE \"users\" SET \"age\" = 30, \"admin\" = 1 WHERE (\"id\" = 1)",
-            users.filter(id == 1).update(age <- 30, admin <- true)
+            users.filter(id == 1).update(age <-- 30, admin <-- true)
         )
     }
 
     func test_update_compilesUpdateLimitOrderExpression() {
         AssertSQL(
             "UPDATE \"users\" SET \"age\" = 30 ORDER BY \"id\" LIMIT 1",
-            users.order(id).limit(1).update(age <- 30)
+            users.order(id).limit(1).update(age <-- 30)
         )
     }
 
@@ -391,8 +391,8 @@ class QueryIntegrationTests : SQLiteTestCase {
         let managerId = Expression<Int64>("manager_id")
         let managers = users.alias("managers")
 
-        let alice = try! db.run(users.insert(email <- "alice@example.com"))
-        _ = try! db.run(users.insert(email <- "betsy@example.com", managerId <- alice))
+        let alice = try! db.run(users.insert(email <-- "alice@example.com"))
+        _ = try! db.run(users.insert(email <-- "betsy@example.com", managerId <-- alice))
 
         for user in try! db.prepare(users.join(managers, on: managers[id] == users[managerId])) {
             _ = user[users[managerId]]
@@ -422,8 +422,8 @@ class QueryIntegrationTests : SQLiteTestCase {
         let managerId = Expression<Int64?>("manager_id")
         let managers = users.alias("managers")
 
-        let alice = try! db.run(users.insert(email <- "alice@example.com"))
-        _ = try! db.run(users.insert(email <- "betsy@example.com", managerId <- alice))
+        let alice = try! db.run(users.insert(email <-- "alice@example.com"))
+        _ = try! db.run(users.insert(email <-- "betsy@example.com", managerId <-- alice))
 
         for user in try! db.prepare(users.join(managers, on: managers[id] == users[managerId])) {
             _ = user[users[managerId]]
@@ -474,17 +474,17 @@ class QueryIntegrationTests : SQLiteTestCase {
     }
 
     func test_pluck() {
-        let rowid = try! db.run(users.insert(email <- "alice@example.com"))
+        let rowid = try! db.run(users.insert(email <-- "alice@example.com"))
         XCTAssertEqual(rowid, try! db.pluck(users)![id])
     }
 
     func test_insert() {
-        let id = try! db.run(users.insert(email <- "alice@example.com"))
+        let id = try! db.run(users.insert(email <-- "alice@example.com"))
         XCTAssertEqual(1, id)
     }
 
     func test_update() {
-        let changes = try! db.run(users.update(email <- "alice@example.com"))
+        let changes = try! db.run(users.update(email <-- "alice@example.com"))
         XCTAssertEqual(0, changes)
     }
 
@@ -495,8 +495,8 @@ class QueryIntegrationTests : SQLiteTestCase {
     
     func test_union() throws {
         let expectedIDs = [
-            try db.run(users.insert(email <- "alice@example.com")),
-            try db.run(users.insert(email <- "sally@example.com"))
+            try db.run(users.insert(email <-- "alice@example.com")),
+            try db.run(users.insert(email <-- "sally@example.com"))
         ]
         
         let query1 = users.filter(email == "alice@example.com")
@@ -529,9 +529,9 @@ class QueryIntegrationTests : SQLiteTestCase {
     }
 
     func test_catchConstraintError() {
-        try! db.run(users.insert(email <- "alice@example.com"))
+        try! db.run(users.insert(email <-- "alice@example.com"))
         do {
-            try db.run(users.insert(email <- "alice@example.com"))
+            try db.run(users.insert(email <-- "alice@example.com"))
             XCTFail("expected error")
         } catch let Result.error(_, code, _) where code == SQLITE_CONSTRAINT {
             // expected

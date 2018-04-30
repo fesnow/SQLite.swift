@@ -19,7 +19,7 @@ class StatementTests : SQLiteTestCase {
         let blobs = Table("blobs")
         let blobColumn = Expression<Blob>("blob_column")
         try! db.run(blobs.create { $0.column(blobColumn) })
-        try! db.run(blobs.insert(blobColumn <- Blob(bytes: [])))
+        try! db.run(blobs.insert(blobColumn <-- Blob(bytes: [])))
         let blobValue = try! db.scalar(blobs.select(blobColumn).limit(1, offset: 0))
         XCTAssertEqual([], blobValue.bytes)
     }

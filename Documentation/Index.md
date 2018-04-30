@@ -616,13 +616,13 @@ using the following functions.
 We can insert rows into a table by calling a [query’s](#queries) `insert`
 function with a list of [setters](#setters)—typically [typed column
 expressions](#expressions) and values (which can also be expressions)—each
-joined by the `<-` operator.
+joined by the `<--` operator.
 
 ```swift
-try db.run(users.insert(email <- "alice@mac.com", name <- "Alice"))
+try db.run(users.insert(email <-- "alice@mac.com", name <-- "Alice"))
 // INSERT INTO "users" ("email", "name") VALUES ('alice@mac.com', 'Alice')
 
-try db.run(users.insert(or: .replace, email <- "alice@mac.com", name <- "Alice B."))
+try db.run(users.insert(or: .replace, email <-- "alice@mac.com", name <-- "Alice B."))
 // INSERT OR REPLACE INTO "users" ("email", "name") VALUES ('alice@mac.com', 'Alice B.')
 ```
 
@@ -631,7 +631,7 @@ the inserted row’s [`ROWID`][ROWID].
 
 ```swift
 do {
-    let rowid = try db.run(users.insert(email <- "alice@mac.com"))
+    let rowid = try db.run(users.insert(email <-- "alice@mac.com"))
     print("inserted id: \(rowid)")
 } catch {
     print("insertion failed: \(error)")
@@ -657,8 +657,8 @@ specifically handle constraint errors ([SQLITE_CONSTRAINT](https://sqlite.org/re
 
 ```swift
 do {
-    try db.run(users.insert(email <- "alice@mac.com"))
-    try db.run(users.insert(email <- "alice@mac.com"))
+    try db.run(users.insert(email <-- "alice@mac.com"))
+    try db.run(users.insert(email <-- "alice@mac.com"))
 } catch let Result.error(message, code, statement) where code == SQLITE_CONSTRAINT {
     print("constraint failed: \(message), in \(statement)")
 } catch let error {
@@ -672,11 +672,11 @@ for details) and a optional reference to the `statement` which produced the erro
 
 ### Setters
 
-SQLite.swift typically uses the `<-` operator to set values during [inserts
+SQLite.swift typically uses the `<--` operator to set values during [inserts
 ](#inserting-rows) and [updates](#updating-rows).
 
 ```swift
-try db.run(counter.update(count <- 0))
+try db.run(counter.update(count <-- 0))
 // UPDATE "counters" SET "count" = 0 WHERE ("id" = 1)
 ```
 
@@ -709,7 +709,7 @@ try db.transaction {
 
 | Operator | Types              |
 | -------- | ------------------ |
-| `<-`     | `Value -> Value`   |
+| `<--`     | `Value -> Value`   |
 | `+=`     | `Number -> Number` |
 | `-=`     | `Number -> Number` |
 | `*=`     | `Number -> Number` |
@@ -1104,13 +1104,13 @@ let count = try db.scalar(users.filter(name != nil).count)
 We can update a table’s rows by calling a [query’s](#queries) `update`
 function with a list of [setters](#setters)—typically [typed column
 expressions](#expressions) and values (which can also be expressions)—each
-joined by the `<-` operator.
+joined by the `<--` operator.
 
 When an unscoped query calls `update`, it will update _every_ row in the
 table.
 
 ```swift
-try db.run(users.update(email <- "alice@me.com"))
+try db.run(users.update(email <-- "alice@me.com"))
 // UPDATE "users" SET "email" = 'alice@me.com'
 ```
 
@@ -1119,7 +1119,7 @@ Be sure to scope `UPDATE` statements beforehand using [the `filter` function
 
 ```swift
 let alice = users.filter(id == 1)
-try db.run(alice.update(email <- "alice@me.com"))
+try db.run(alice.update(email <-- "alice@me.com"))
 // UPDATE "users" SET "email" = 'alice@me.com' WHERE ("id" = 1)
 ```
 
@@ -1128,7 +1128,7 @@ rows.
 
 ```swift
 do {
-    if try db.run(alice.update(email <- "alice@me.com")) > 0 {
+    if try db.run(alice.update(email <-- "alice@me.com")) > 0 {
         print("updated alice")
     } else {
         print("alice not found")
@@ -1185,8 +1185,8 @@ an error, the changes will be rolled back.
 
 ```swift
 try db.transaction {
-    let rowid = try db.run(users.insert(email <- "betty@icloud.com"))
-    try db.run(users.insert(email <- "cathy@icloud.com", managerId <- rowid))
+    let rowid = try db.run(users.insert(email <-- "betty@icloud.com"))
+    try db.run(users.insert(email <-- "cathy@icloud.com", managerId <-- rowid))
 }
 // BEGIN DEFERRED TRANSACTION
 // INSERT INTO "users" ("email") VALUES ('betty@icloud.com')
@@ -1767,8 +1767,8 @@ second.
 
 ```swift
 try db.run(emails.insert(
-    subject <- "Just Checking In",
-    body <- "Hey, I was just wondering...did you get my last email?"
+    subject <-- "Just Checking In",
+    body <-- "Hey, I was just wondering...did you get my last email?"
 ))
 
 let wonderfulEmails: QueryType = emails.match("wonder*")
